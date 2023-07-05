@@ -3,6 +3,9 @@
 #define SIZE 10
 #define COMMAND 7
 
+void twoCommand(int konum, int komut, int redFlag, int atla, int yer[][SIZE]);
+void sixCommand(int konum, int komut, int yer[][SIZE]);
+
 int main(){
 
     int yer[SIZE][SIZE] = {0};
@@ -24,26 +27,31 @@ int main(){
 
 
     while(true){
+
         printf("\nKomut Giriniz:\n");
         scanf("%d", &komut);
-
-        if(komut == 6){
-            for(size_t i = 0; i < SIZE; i++){
-                for(int j = 0; j < SIZE; j++){
-                    if(yer[i][j] == 0){
-                        printf(" ");
-                    }else{
-                        printf("*");
-                    }
-                }
-                puts("");
-            }
+        if(komut == 2){
+            twoCommand(konum, komut, redFlag, atla, yer);
+        }else if(komut == 6){
+          sixCommand(konum, komut, yer);
         }
 
-        if(komut == 2){              // Komut 2 geçetiğimiz yerleri işaretler
+
+    }
+
+
+
+    return 0;
+}
+
+
+void twoCommand(int konum, int komut, int redFlag, int atla, int yer[][SIZE]){
+
+
             int prevCommand = 0;    // işaretleme kalktığında önceki yönün doğrultusu ile ilerleme
             for(size_t i = 0; i < SIZE; i++){
                 for(int j = 0; j < SIZE; j++){
+
                     printf("Sag ve Sol donusler icin komut giriniz:\n");
                     prevCommand = komut;
                     scanf("%d", &komut);
@@ -59,7 +67,7 @@ int main(){
                           printf("Konum: yer{%zu, %d}\n", i, konum);
                           break;
                         case 3:
-                          if((konum + 1) >= SIZE ) {
+                          if((konum + 1) >= SIZE ) {    // Sınırı aşarsak uyarı alırız.
                                 printf("Boyut disi\nSatir Basina donuldu!");
                                 konum = 0;
                           }else {
@@ -70,18 +78,19 @@ int main(){
                             }
                           break;
                         case 4:
-                          if(konum > 0){
-                            yer[i][konum] = 1;
-                            --konum;
-                            j = konum;
-                            printf("Konum: yer{%zu, %d}\n", i, konum);
-                          }
-                          if(konum < 0) printf("Boyut disi\n");
+                            if(konum > 0){
+                              yer[i][konum] = 1;
+                              --konum;
+                              j = konum;
+                              printf("Konum: yer{%zu, %d}\n", i, konum);
+                              }
+                              if(konum < 0) printf("Boyut disi\n");
                           break;
                         case 5:
                           printf("Ne kadar boslukla atlansin?\n");
                           scanf("%d", &atla);
                           printf("%d, %d\n", komut, atla);
+
                           if((konum + atla) > SIZE - 1){
                             printf("Boyut disi\n");
                             j = konum;
@@ -109,9 +118,22 @@ int main(){
                 }
             }
 
-        }
-    }
+
+}
 
 
-    return 0;
+
+void sixCommand(int konum, int komut, int yer[][SIZE]){
+
+            for(size_t i = 0; i < SIZE; i++){
+                for(int j = 0; j < SIZE; j++){
+                    if(yer[i][j] == 0){
+                        printf(" ");
+                    }else{
+                        printf("*");
+                    }
+                }
+                puts("");
+            }
+
 }
