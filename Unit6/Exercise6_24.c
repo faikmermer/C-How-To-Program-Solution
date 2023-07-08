@@ -14,7 +14,7 @@ int main(void){
     //baslangic noktasi. En iyi yolu kendiniz tercih edip düzenleyebilirsiniz.
     mat[prevRow][prevCol] = 1;
     if(knightsTour(prevRow, prevCol, locatin, mat) == 0){
-        printf("Tum durum dolduruldu\n");
+        printf("%*s%s\n\n", 4, "", "Hamle alanina yer yok");
     }
     knightsMap(mat);
 
