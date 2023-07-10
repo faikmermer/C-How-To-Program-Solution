@@ -4,17 +4,17 @@
 
 int safe(int x, int y, int mat[][SIZE]);
 void knightsMap(int mat[][SIZE]);
-int knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]);
+bool knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]);
 
 int main(void){
     int locatin = 1;
     int prevRow = 0;
     int prevCol = 0;
     int mat[SIZE][SIZE] = {0};
-    //baslangic noktasi. En iyi yolu kendiniz tercih edip düzenleyebilirsiniz.
+    // başlangıç noktası. En iyi yolu kendiniz tercih edip düzenleyebilirsiniz.
     mat[prevRow][prevCol] = 1;
-    if(knightsTour(prevRow, prevCol, locatin, mat) == 0){
-        printf("%*s%s\n\n", 4, "", "Hamle alanina yer yok");
+    if(!knightsTour(prevRow, prevCol, locatin, mat)){
+        printf("%*s%s\n\n", 4, "", "Hamle alanına yer yok");
     }
     knightsMap(mat);
 
@@ -28,51 +28,39 @@ void knightsMap(int mat[][SIZE]){
         }
         puts("");
     }
-
 }
 
-int knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]){
-
-    int currentRow = 0;
-    int currentCol = 0;
-    int verti[8] = { 2, 1, -1, -2, -2, -1, 1, 2 };
-    int hori[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
-
-    int prevRow = nextRow;
-    int prevCol = nextCol;
-
-
+bool knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]){
     if(locatin == SIZE * SIZE){
         return true;
     }
 
+    int verti[8] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+    int hori[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+
     for(int i = 0; i < SIZE; i++){
-        currentRow = verti[i];
-        currentCol = hori[i];
+        int currentRow = verti[i];
+        int currentCol = hori[i];
         nextRow = nextRow + currentRow;
         nextCol = nextCol + currentCol;
         if(safe(nextRow, nextCol, mat)){
             mat[nextRow][nextCol] = ++locatin;
-        }else{ // matrix'in dışına çıkılırsa veya kare dolu ise eski konuma geri döner.
-            nextRow -= currentRow;
-            nextCol -= currentCol;
-        }
-        if( i == 7){
-            if(prevRow == nextRow && prevCol == nextCol){
-                break;
+            if(knightsTour(nextRow, nextCol, locatin, mat)){
+                return true;
             }
-            knightsTour(nextRow, nextCol, locatin, mat);
+            mat[nextRow][nextCol] = 0; 
+            --locatin;
         }
+        nextRow -= currentRow;
+        nextCol -= currentCol;
     }
 
-
-    return 0;
+    return false;
 }
 
 int safe(int x, int y, int mat[][SIZE]){
-    if(mat[x][y] == 0 && x >= 0 && x < SIZE && y >= 0 && y < SIZE){
+    if(x >= 0 && x < SIZE && y >= 0 && y < SIZE && mat[x][y] == 0){
         return 1;
     }
     return 0;
 }
-
