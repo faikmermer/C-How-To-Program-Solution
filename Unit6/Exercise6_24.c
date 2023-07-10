@@ -8,8 +8,8 @@ int knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]);
 
 int main(void){
     int locatin = 1;
-    int prevRow = 3;
-    int prevCol = 4;
+    int prevRow = 0;
+    int prevCol = 0;
     int mat[SIZE][SIZE] = {0};
     //baslangic noktasi. En iyi yolu kendiniz tercih edip düzenleyebilirsiniz.
     mat[prevRow][prevCol] = 1;
@@ -35,8 +35,9 @@ int knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]){
 
     int currentRow = 0;
     int currentCol = 0;
-    int verti[8] = {-1, -2,  1,  2,  2, 1, 1, -1};
-    int hori[8] = {  2, -1, -2, -1, -1, 2, 2, 2};
+    int verti[8] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+    int hori[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+
     int prevRow = nextRow;
     int prevCol = nextCol;
 
@@ -57,7 +58,6 @@ int knightsTour(int nextRow, int nextCol, int locatin, int mat[][SIZE]){
             nextCol -= currentCol;
         }
         if( i == 7){
-            // adım atılacak yer kalmadı ise programı durdur.
             if(prevRow == nextRow && prevCol == nextCol){
                 break;
             }
