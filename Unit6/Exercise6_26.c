@@ -12,11 +12,13 @@ void backtrack(int row, int queens, int chess[][SIZE]);
 
 int main(void){
 
-    int chess[SIZE][SIZE] = {0};
+   int chess[SIZE][SIZE] = {0};
     int queens = 0;
     int row = 0;
-
-    eigQueens(row, queens, chess);
+    //İlk satırın farketmeksizin istediğiniz sütundan başlatabilirsiniz!
+    chess[0][2] = 1;
+    forbiddenMove(row, 4, queens + 1, chess);
+    eigQueens(row + 1, queens + 1, chess);
     printfchess(chess);
 
 }
