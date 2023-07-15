@@ -16,7 +16,7 @@ int main(void){
     for(size_t i = 0; i < SIZE; i++){
         element = rand() % (max + min - 1) + min;
         binarySearch[i] = element;
-        if(binarySearch[1] > 0){
+        
             for(size_t j = 0; j < i; j++){
                 if(binarySearch[j] == binarySearch[i]){
                     binarySearch[i] = 0;
@@ -24,7 +24,6 @@ int main(void){
                     break;
                 }
             }
-        }
 
     }
     yazdir(binarySearch);
