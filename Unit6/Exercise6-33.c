@@ -35,7 +35,7 @@ int main(void){
 bool binarySearch(int first, int last, int ara, int array[]){
 
     int mid = (last + first) / 2;
-    if(last == first){
+    if(last == first || last < 0){
         return 0;
     }
 
